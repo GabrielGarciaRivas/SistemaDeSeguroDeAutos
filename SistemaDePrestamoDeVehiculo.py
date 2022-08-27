@@ -58,3 +58,21 @@ class Vehiculos:
     
     def str(self):
         return 'Marca: {}\nColor: {}\n Año: {}\n Matricula: {}\n Propietario: {}\n Pago Mensual {}'.format(self.marca,self.color,self.año,self.matricula,self.nombreDueño,self.pago)
+
+class Gestor_vehiculo:
+    def agregar_vehiculo(self,u):
+        conexion = mysql.connector.connect(
+            host="localhost",
+            user="root",
+            password="123456",
+            database='Seguro'
+        )
+        cursor = conexion.cursor()
+        try:
+            cursor.execute("INSERT INTO vehiculo VALUES ('{}','{}','{}','{}','{}','{}')".format(u.nombreDueño,u.matricula,u.año,u.marca,u.color,u.pago))
+        except mysql.connector.errors.IntegrityError:
+            print('el vehiculo que desea añadir a la base de datos ya existe')
+        else:
+            print(f'{u} añadido correctamente')
+        conexion.commit()
+        conexion.close()
