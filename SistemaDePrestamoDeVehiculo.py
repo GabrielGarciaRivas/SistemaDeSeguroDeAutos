@@ -76,3 +76,41 @@ class Gestor_vehiculo:
             print(f'{u} añadido correctamente')
         conexion.commit()
         conexion.close()
+    
+    def borra_vehiculo(self,matricula):
+        conexion = mysql.connector.connect(
+            host="localhost",
+            user="root",
+            password="123456",
+            database='Seguro'
+        )
+        cursor = conexion.cursor()
+
+        sql = "SELECT * FROM vehiculo WHERE matricula='{}'".format(matricula)
+        cursor.execute(sql)
+        usuarios = cursor.fetchall()
+        for usuario in usuarios:
+            if matricula == usuario[1]:
+                cursor.execute("DELETE FROM vehiculo WHERE matricula='{}'".format(matricula))
+                print('el vehiculo de matricula {} se ha borrado correctamente '.format(matricula))
+                conexion.commit()
+                conexion.close()
+                return
+        print('el vehiculo de matricula {} nunca existio en la base de datos'.format(matricula))
+    
+    def consulta_vehiculo(self,matricula):
+        conexion = mysql.connector.connect(
+            host="localhost",
+            user="root",
+            password="123456",
+            database='Seguro'
+        )
+        cursor = conexion.cursor()
+        sql = cursor.execute("SELECT nombreDueño, matricula, año, marca, color, pago FROM clientes WHERE matricula='{}'".format(matricula))
+        cursor.execute(sql)
+        cliente = cursor.fetchone()
+        if cliente == None:
+            print('no existe un vehiculo registrado con ese numero de matricula')
+        else:
+            print(cliente)
+        conexion.close()
