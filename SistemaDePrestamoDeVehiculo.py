@@ -114,3 +114,49 @@ class Gestor_vehiculo:
         else:
             print(cliente)
         conexion.close()
+
+c = Gestor_vehiculo
+print('sistema de seguros')
+def pedirNumeroEntero():
+ 
+    correcto=False
+    num=0
+    while(not correcto):
+        try:
+            num = int(input("Introduce un numero entero: "))
+            correcto=True
+        except ValueError:
+            print('Error, introduce un numero entero')
+     
+    return num
+ 
+salir = False
+opcion = 0
+ 
+while not salir:
+ 
+    print ("1. Agregar Vehiculo")
+    print ("2. Borrar Vehiculo")
+    print ("3. Consulta Vehiculo")
+    print ("4. Salir")
+     
+    print ("Elige una opcion")
+ 
+    opcion = pedirNumeroEntero()
+ 
+    if opcion == 1:
+        nombreDueño = input('introduce el nombre del propietario del vehiculo')
+        matricula = input('introduce la matricula del vehiculo')
+        año = input('introduce la año del vehiculo')
+        marca = input('introduce la marca del vehiculo')
+        color = input('introduce el color del vehiculo')
+        pago = input('introduce la cantidad que ese vehiculo debe pagar mensual')
+        c.agregar_vehiculo(Vehiculos(nombreDueño, matricula, año, marca, color, pago))
+    elif opcion == 2:
+        c.borra_vehiculo(matricula)
+    elif opcion == 3:
+        c.consulta_vehiculo(matricula)
+    elif opcion == 4:
+        salir = True
+    else:
+        print ("Introduce un numero entre 1 y 3")
