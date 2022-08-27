@@ -44,3 +44,17 @@ class create:
         else:
             print('tabla vehiculo creada correctamente')
         self.conexion.close()
+
+create()
+class Vehiculos:
+    #constructor del objeto vehiculo
+    def init(self, nombreDueño, matricula, año, marca, color, pago):
+        self.nombreDueño = nombreDueño
+        self.matricula = matricula
+        self.año = año
+        self.marca = marca
+        self.color = color
+        self.pago = pago
+    
+    def str(self):
+        return 'Marca: {}\nColor: {}\n Año: {}\n Matricula: {}\n Propietario: {}\n Pago Mensual {}'.format(self.marca,self.color,self.año,self.matricula,self.nombreDueño,self.pago)
